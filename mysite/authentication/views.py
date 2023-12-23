@@ -10,12 +10,12 @@ def register(request):
         form = RegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, "Registration Successful. You can now log in.")
+            messages.success(request, "Registration successful. You can now log in.")
             return redirect("login")
     else:
         form = RegistrationForm()
-    
-    return render(request, "auth/register.html", {"form": form})
+        
+    return render(request, "authentication/register.html", {"form": form})
 
 def login(request):
     if request.method == "POST":
@@ -26,10 +26,10 @@ def login(request):
             user = User.objects.filter(username=username, password=password).first()
             if user:
                 messages.success(request, "Login Successful.")
-                return redirect("home")
+                return redirect("Home")
             else:
-                messages.error(request, "Invalid login credentials.")
+                messages.error(request, "Invalid Login credentials.")
     else:
         form = LoginForm()
-        
-    return render(request, "auth/login.html", {"form": form})
+    
+    return render(request, "authentication/login.html", {"form": form})
